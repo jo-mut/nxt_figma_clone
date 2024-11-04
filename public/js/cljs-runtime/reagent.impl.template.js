@@ -388,11 +388,11 @@ return x;
 })();
 return reagent.impl.protocols.as_element(compiler,cljs.core.with_meta(new cljs.core.PersistentVector(null, 6, 5, cljs.core.PersistentVector.EMPTY_NODE, [input_class,argv,component,jsprops,first_child,compiler], null),cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.prim_seq.cljs$core$IFn$_invoke$arity$2([(cljs.core.truth_(react_key)?new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"key","key",-1516042587),react_key], null):null),cljs.core.meta(argv)], 0))));
 } else {
-var temp__5808__auto___21976 = reagent.impl.util.get_react_key(cljs.core.meta(argv));
-if((temp__5808__auto___21976 == null)){
+var temp__5808__auto___21974 = reagent.impl.util.get_react_key(cljs.core.meta(argv));
+if((temp__5808__auto___21974 == null)){
 } else {
-var key_21977 = temp__5808__auto___21976;
-(jsprops.key = key_21977);
+var key_21975 = temp__5808__auto___21974;
+(jsprops.key = key_21975);
 }
 
 return reagent.impl.protocols.make_element(compiler,argv,component,jsprops,first_child);
@@ -407,11 +407,11 @@ return or__5002__auto__;
 return ({});
 }
 })();
-var temp__5808__auto___21980 = reagent.impl.util.get_react_key(cljs.core.meta(argv));
-if((temp__5808__auto___21980 == null)){
+var temp__5808__auto___21976 = reagent.impl.util.get_react_key(cljs.core.meta(argv));
+if((temp__5808__auto___21976 == null)){
 } else {
-var key_21981 = temp__5808__auto___21980;
-(jsprops.key = key_21981);
+var key_21977 = temp__5808__auto___21976;
+(jsprops.key = key_21977);
 }
 
 return reagent.impl.protocols.make_element(compiler,argv,comp,jsprops,(3));
@@ -476,10 +476,10 @@ throw (new Error(["Assert failed: ",reagent.impl.util.hiccup_err.cljs$core$IFn$_
 
 break;
 default:
-var G__21985 = cljs.core.with_meta(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.subs.cljs$core$IFn$_invoke$arity$3(n,(0),pos),cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.with_meta(v,null),(0),cljs.core.subs.cljs$core$IFn$_invoke$arity$2(n,(pos + (1))))], null),cljs.core.meta(v));
-var G__21986 = compiler;
-v = G__21985;
-compiler = G__21986;
+var G__21983 = cljs.core.with_meta(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.subs.cljs$core$IFn$_invoke$arity$3(n,(0),pos),cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.with_meta(v,null),(0),cljs.core.subs.cljs$core$IFn$_invoke$arity$2(n,(pos + (1))))], null),cljs.core.meta(v));
+var G__21984 = compiler;
+v = G__21983;
+compiler = G__21984;
 continue;
 
 }

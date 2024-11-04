@@ -10,5 +10,5 @@
   {:target :browser
    :output-dir "public/js"   ;; Output directory under the public folder
    :asset-path "/js"          ;; Path used for accessing the assets
-   :modules
-   {:main {:init-fn app.core/init}}}}}
+   :modules {:main {:init-fn app.core/init}}
+   :build-hooks [(shadow.build-hooks/with-dotenv)]}}}

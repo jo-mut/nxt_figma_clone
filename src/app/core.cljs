@@ -1,28 +1,16 @@
 (ns app.core
-  (:require [reagent.core :as r]
-            [reagent.dom :as rdom]))
+  (:require
+   [reagent.dom :as rdom]
+   [app.room :as room]
+   [app.components.live :as live]))
+
 
 (defn app []
-  (r/as-element
-   [:div {:style {:background-color "blue"
-                  :height "100vh"
-                  :width "100%"}}
-    [:ul {:class "list"}
-     [:li {:class "list-item"} "Item 1"]
-     [:li {:class "list-item"} "Item 2"]
-     [:li {:class "list-item"} "Item 3"]]
-    [:ul {:class "list"}
-     [:li {:class "list-item"} "Item 1"]
-     [:li {:class "list-item"} "Item 2"]
-     [:li {:class "list-item"} "Item 3"]]
-    [:ul {:class "list"}
-     [:li {:class "list-item"} "Item 1"]
-     [:li {:class "list-item"} "Item 2"]
-     [:li {:class "list-item"} "Item 3"]]]))
+  [room/room
+   [:div {:className "h-[100vh] w-full flex justify-center items-center text-center"}
+    [:h1 {:className "text-5xl text-white"} "Liveblock works"]
+    [live/view]]])
 
-(defn init []
+;; Reagent render function for Next.js
+(defn ^:export init []
   (rdom/render [app] (.getElementById js/document "app")))
-
-;; Attach init function to window and log for confirmation
-(set! (.-init js/window) init)
-(js/console.log "window.init is set to:" js/window.init)
