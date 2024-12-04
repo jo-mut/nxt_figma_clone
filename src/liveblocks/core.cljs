@@ -1,5 +1,6 @@
 (ns liveblocks.core
   (:require
+   [react.core :as r]
    ["@liveblocks/react/suspense" :as lvb]))
 
 
@@ -14,6 +15,10 @@
 
 
 (defn use-others []
-  (let [hook-result (.-useOthers lvb)]
-    (js/console.log "live users :" hook-result)
+   (.-useOthers lvb))
+
+(defn use-my-presence []
+  (let [hook-result (.useMyPresence lvb)]
+    (js/console.log "use my presence :" hook-result)
+    (println "use my presence " hook-result)
     hook-result))
