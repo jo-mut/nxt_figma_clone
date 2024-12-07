@@ -1,15 +1,12 @@
 (ns app.components.live
   (:require
-   [app.components.cursors.live-cursors :as cursors]
-   [app.components.cursors.cursor-chat :as cursor-chat]
-   [app.lib.types :as custom]
-   [reagent.core :as r]
+   ["@liveblocks/react/suspense" :refer [useOthers, useMyPresence]]
    ["react" :as react]
-   ["@liveblocks/react/suspense" :refer [useOthers, useMyPresence]]))
+   [app.components.cursors.cursor-chat :as cursor-chat]
+   [app.components.cursors.live-cursors :as cursors]
+   [reagent.core :as r]))
 
-(def cursor-state (atom {:cursor-state {:message          ""
-                                        :previous-message ""
-                                        :mode             :hidden}}))
+(def cursor-state (r/atom {:cursor-state {}}))
 
 (defn pointer-move
   [update-my-presence]
@@ -18,8 +15,8 @@
      (let [rect (.getBoundingClientRect (.-currentTarget e))
            x (- (.-clientX e) (.-x rect))
            y (- (.-clientY e) (.-y rect))]
-       (swap! cursor-state update :cursor-state
-              (fn [state] (assoc state :mode (:hidden custom/cursor-mode))))
+       (swap! cursor-state update :cursor-state 
+              (fn [state] (assoc state :mode :chat)))
        (update-my-presence #js {:cursor {:x x :y y}})))
    [update-my-presence]))
 
@@ -28,8 +25,8 @@
   (react/useCallback
    (fn [e]
      (.preventDefault e)
-     (update-my-presence #js {:cursor nil
-                              :message nil}))
+     (update-my-presence #js {:cursor {}
+                              :message {}}))
    [update-my-presence]))
 
 (defn pointer-down
@@ -41,8 +38,6 @@
            y (- (.-clientY e) (.-y rect))]
        (update-my-presence #js {:cursor {:x x :y y}})))
    [update-my-presence]))
-
-
 
 (defn view []
   (let [others (useOthers)
@@ -58,12 +53,15 @@
        (let [on-key-up (fn [event]
                          (cond
                            (= (.-key event) "/")
-                           (swap! cursor-state update :cursor-state
-                                  (fn [state]
-                                    (-> state
-                                        (assoc  :previous-message nil)
-                                        (assoc  :message          "")
-                                        (assoc  :mode             :chat))))
+                           (->
+                             (swap! cursor-state update :cursor-state
+                                    (fn [state]
+                                      (-> state
+                                          (assoc  :previous-message nil)
+                                          (assoc  :message          "")
+                                          (assoc  :mode             :chat))))
+                             (js/console.log "cursor mode: " @cursor-state))
+
                            (= (.-key event) "Escape")
                            (fn []
                              (update-my-presence #js {:message ""})
@@ -74,7 +72,6 @@
 
          (.addEventListener js/window "keyup" on-key-up)
          (.addEventListener js/window "keydown" on-key-down)
-
 
          (fn []
            (.removeEventListener js/window "keyup" on-key-up)
@@ -93,6 +90,4 @@
          {:cursor cursor
           :cursor-state cursor-state
           :update-my-presence update-my-presence}])
-      (js/console.log "others lives ******"  others)
-      (when (seq others)
-        [cursors/live-cursors  {:others others}])])))
+      [cursors/live-cursors  {:others others}]])))
